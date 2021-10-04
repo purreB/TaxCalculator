@@ -1,49 +1,49 @@
 import javax.swing.*;
 
-public class Inkomstskatt {
-    public static void main(String[] args) {
-        boolean igen = true;
-        while (igen) {
+public class TaxCalculator {
+    static void main(String[] args) {
+        boolean again = true;
+        while (again) {
 
-            String s = JOptionPane.showInputDialog("Årsinkomst?");
-            int inkomst = 0;
-            int BrytPunktLåg = 468700;
-            int BrytPunktHög = 675700;
-            int BetalaPå = 0;
-            int AttBetala = 0;
-            boolean försökIgen = true;
-            while (försökIgen) {
+            String s = JOptionPane.showInputDialog("Yearly Income?");
+            int income = 0;
+            int BreakPointLow = 468700;
+            int BreakPointHigh = 675700;
+            int toPayOn = 0;
+            int toPay = 0;
+            boolean tryAgain = true;
+            while (tryAgain) {
                 if (s == null)
-                    System.exit(0); // Användaren tryckte på avbryt.
+                    System.exit(0); // User pressed abort
                 try {
-                    inkomst = Integer.parseInt(s); // Försök omvandla texten till numeriskt värde.
-                    försökIgen = false; // Ändra försökIgen till false om omvandlingen lyckades.
-                } catch (NumberFormatException e) { // Omvandlingen misslyckades
-                    s = JOptionPane.showInputDialog("Felaktigt tal! \nAnge bara siffror: ");
+                    income = Integer.parseInt(s); // Try to convert string to numeric value
+                    tryAgain = false; // Change tryAgain to false if conversion succeeded
+                } catch (NumberFormatException e) { // Conversion failed
+                    s = JOptionPane.showInputDialog("Wrongly number! \nUse only numbers: ");
                 }
             }
 
-            if (inkomst > BrytPunktHög) { // Testar om inkomsten är högre än högsta brytpunkten.
-                BetalaPå = inkomst - BrytPunktHög;// om den är det så skapa en int vid namn BetalaPå som skall räkna ut
-                                                  // hur mycket över brytpunkten är.
-            } else if (inkomst > BrytPunktLåg) { // Om inte inkomsten är över högsta brytpunkten, testar om den är över
-                                                 // lägsta.
-                BetalaPå = inkomst - BrytPunktLåg;
+            if (income > BreakPointHigh) { // Tests if income is higher than highest breakpoint
+                toPayOn = income - BreakPointHigh;// If it is, create a int named toPayOn which calculates
+                                                  // How much over the breakpoint the income is
+            } else if (income > BreakPointLow) { // If income is not over highest breakpoint
+                                                 // test if its over the lowest breakpoint
+                toPayOn = income - BreakPointLow;
             } else {
-                JOptionPane.showMessageDialog(null, "Du behöver inte betala statlig inkomstskatt."); // Om årsinkomst är
-                                                                                                     // under
-                                                                                                     // brytpunkten
-                                                                                                     // behöver man inte
-                                                                                                     // betala.
+                JOptionPane.showMessageDialog(null, "You dont need to pay federal incometax"); // If yearlyincome is
+                                                                                               // under
+                                                                                               // breakpoint
+                                                                                               // you dont have
+                                                                                               // to pay.
             }
 
-            if (inkomst > BrytPunktHög) { // Är inkomsten högre än högsta brytpunkt = betala 25% på det som är över
-                                          // gränsen
-                AttBetala = BetalaPå / 4;
-                JOptionPane.showMessageDialog(null, "Du skall betala: " + AttBetala + "kr");
-            } else if (inkomst > BrytPunktLåg) { // Annars betala 20% på det som är över lägsta brytpunkt
-                AttBetala = BetalaPå / 5;
-                JOptionPane.showMessageDialog(null, "Du skall betala " + AttBetala + "kr");
+            if (income > BreakPointHigh) { // If income iis higher than highest breakpoint
+                                           // pay 25% on the ammount that is over the limit
+                toPay = toPayOn / 4;
+                JOptionPane.showMessageDialog(null, "You shall pay: " + toPay + "SEK");
+            } else if (income > BreakPointLow) { // Otherwise, pay 20% of the ammount over the lowest breakpoint
+                toPay = toPayOn / 5;
+                JOptionPane.showMessageDialog(null, "You shall pay " + toPay + "SEK");
             }
         }
     }
